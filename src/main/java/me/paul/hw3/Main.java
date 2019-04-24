@@ -2,10 +2,10 @@ package me.paul.hw3;
 
 import java.util.List;
 
-import me.paul.hw3.impl.Coyote;
-import me.paul.hw3.impl.RoadRunner;
-import me.paul.hw3.impl.Simulation;
-import me.paul.hw3.impl.SimulationBuilder;
+import me.paul.hw3.simulation.Coyote;
+import me.paul.hw3.simulation.RoadRunner;
+import me.paul.hw3.simulation.Simulation;
+import me.paul.hw3.simulation.SimulationBuilder;
 
 public class Main {
 

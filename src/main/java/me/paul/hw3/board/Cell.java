@@ -2,7 +2,7 @@ package me.paul.hw3.board;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import me.paul.hw3.impl.Agent;
+import me.paul.hw3.simulation.Agent;
 
 @RequiredArgsConstructor @Getter
 public class Cell {

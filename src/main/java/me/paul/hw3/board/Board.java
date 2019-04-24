@@ -5,8 +5,8 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import me.paul.hw3.impl.Agent;
-import me.paul.hw3.impl.Simulation;
+import me.paul.hw3.simulation.Agent;
+import me.paul.hw3.simulation.Simulation;
 
 /**
  * This is the class that will represent the grid environment for the {@link Simulation} object

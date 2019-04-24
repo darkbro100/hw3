@@ -1,4 +1,4 @@
-package me.paul.hw3.impl;
+package me.paul.hw3.simulation;
 
 import java.util.UUID;
 
