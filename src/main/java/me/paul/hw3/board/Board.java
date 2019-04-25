@@ -1,7 +1,12 @@
 package me.paul.hw3.board;
 
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +18,12 @@ import me.paul.hw3.simulation.Simulation;
  * @author Paul
  *
  */
-public class Board {
+public class Board extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7157079009555542796L;
 
 	private Cell[][] cells;
 	
@@ -27,6 +37,10 @@ public class Board {
 		this.columns = columns;
 		
 		this.cells = new Cell[rows][columns];
+		
+		setLayout(new GridLayout(rows, columns));
+		setOpaque(false);
+		
 		fillGrid();
 	}
 	
@@ -36,7 +50,10 @@ public class Board {
 	private void fillGrid() {
 		for(int i = 0; i < rows; i++) {
 			for(int j = 0; j < columns; j++) {
-				this.cells[i][j] = new Cell(this, i, j);
+				Cell c = new Cell(this, i, j);
+				cells[i][j] = c;
+				
+				add(c);
 			}
 		}
 	}
@@ -63,6 +80,7 @@ public class Board {
 	 * @param agentClazz The class that represents the specific Agent we are trying to find
 	 * @return List of the found Agents
 	 */
+	@SuppressWarnings("unchecked")
 	public <T extends Agent<T>> List<T> getAgents(Class<T> agentClazz) {
 		List<T> toReturn = new ArrayList<>();
 		
@@ -72,6 +90,24 @@ public class Board {
 				
 				if(c.isOccupied() && agentClazz.isInstance(c.getOccupying()))
 					toReturn.add((T) c.getOccupying());
+			}
+		}
+		
+		return toReturn;
+	}
+	
+	/**
+	 * @return List of all the {@link Agent} currently residing in the {@link Board}
+	 */
+	public List<Agent<?>> getAllAgents() {
+		List<Agent<?>> toReturn = new ArrayList<>();
+		
+		for(int i = 0; i < rows; i++) {
+			for(int j = 0; j < columns; j++) {
+				Cell c = cells[i][j];
+				
+				if(c.isOccupied())
+					toReturn.add(c.getOccupying());
 			}
 		}
 		
