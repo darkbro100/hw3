@@ -1,12 +1,14 @@
 package me.paul.hw3.simulation;
 
+import java.awt.BorderLayout;
 import java.util.SplittableRandom;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import lombok.Getter;
-import me.paul.hw3.board.Board;
-import me.paul.hw3.board.Cell;
+import me.paul.hw3.simulation.grid.Board;
+import me.paul.hw3.simulation.grid.Cell;
 
 public class Simulation extends JFrame {
 
@@ -15,12 +17,15 @@ public class Simulation extends JFrame {
 	 */
 	private static final long serialVersionUID = 1931152867981077508L;
 
+	@Getter
 	private int tick;
 	@Getter
 	private Board board;
 
+	private JButton stepButton;
+	
 	protected Simulation(int rows, int columns, int minPredators, int maxPredators, int minPrey, int maxPrey) {
-		this.board = new Board(rows, columns);
+		this.board = new Board(this, rows, columns);
 		this.tick = 0;
 
 		SplittableRandom random = new SplittableRandom();
@@ -39,8 +44,7 @@ public class Simulation extends JFrame {
 					found = null;
 			}
 
-			RoadRunner roadRunner = new RoadRunner(found);
-			found.setOccupying(roadRunner);
+			new RoadRunner(found);
 
 			System.out.println(
 					String.format("Spawned RoadRunner at location: (%s, %s)", found.getRow(), found.getColumn()));
@@ -58,21 +62,35 @@ public class Simulation extends JFrame {
 					found = null;
 			}
 
-			Coyote coyote = new Coyote(found);
-			found.setOccupying(coyote);
+			new Coyote(found);
 
 			System.out.println(String.format("Spawned Coyote at location: (%s, %s)", found.getRow(), found.getColumn()));
 		}
 
 		setVisible(true);
+		setTitle("Simulation | Time Step: " + tick);
 		setSize(640, 480);
+		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		add(board);
+		
+		setupButton();
 	}
 
-	public void start() {
-
+	private void setupButton() {
+		this.stepButton = new JButton("Next Step");
+		stepButton.setVisible(true);
+		
+		stepButton.addActionListener((e) -> {
+			tick++;
+			board.getAllAgents().forEach(Agent::update);
+			board.getAllAgents().stream().filter(a -> a.shouldBreed()).forEach(a -> a.breed());
+			
+			setTitle("Simulation | Time Step: " + tick);
+		});
+		
+		add(stepButton, BorderLayout.SOUTH);
 	}
 	
 //	private void drawCells() {

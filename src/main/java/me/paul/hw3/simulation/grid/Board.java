@@ -1,11 +1,9 @@
-package me.paul.hw3.board;
+package me.paul.hw3.simulation.grid;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import lombok.Getter;
@@ -14,7 +12,7 @@ import me.paul.hw3.simulation.Agent;
 import me.paul.hw3.simulation.Simulation;
 
 /**
- * This is the class that will represent the grid environment for the {@link Simulation} object
+ * This is the class that will represent the grid environment for a {@link Simulation} object
  * @author Paul
  *
  */
@@ -32,7 +30,11 @@ public class Board extends JPanel {
 	@Getter
 	private int columns;
 	
-	public Board(int rows, int columns) {
+	@Getter
+	private Simulation simulation;
+	
+	public Board(Simulation simulation, int rows, int columns) {
+		this.simulation = simulation;
 		this.rows = rows;
 		this.columns = columns;
 		
@@ -120,10 +122,23 @@ public class Board extends JPanel {
 		NORTH(1,0),
 		SOUTH(-1,0),
 		EAST(0,1),
-		WEST(0,-1);
+		NORTHEAST(1, 1),
+		SOUTHEAST(-1, 1),
+		WEST(0,-1),
+		SOUTHWEST(-1, -1),
+		NORTHWEST(1, -1);
 
 		private final int rowOffset;
 		private final int columnOffset;
+		
+		public static Direction valueOf(int row, int col) {
+			for(Direction d : values()) {
+				if(d.rowOffset == row && d.columnOffset == col)
+					return d;
+			}
+			
+			return null;
+		}
 		
 	}
 	

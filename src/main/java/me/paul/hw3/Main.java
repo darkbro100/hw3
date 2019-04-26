@@ -14,7 +14,7 @@ public class Main {
 		System.out.println("Normal simulation type shit...");
 		SimulationBuilder builder = SimulationBuilder.getInstance();
 		
-		Simulation s = builder.createSimulation(5, 5, 5, 10, 5, 10);
+		Simulation s = builder.createSimulation(7,7, 5, 10, 5, 10);
 		
 		List<Coyote> coyotes = s.getBoard().getAgents(Coyote.class);
 		List<RoadRunner> runners = s.getBoard().getAgents(RoadRunner.class);
