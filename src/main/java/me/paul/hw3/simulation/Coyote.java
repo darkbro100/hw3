@@ -18,8 +18,6 @@ public class Coyote extends Agent<Coyote> {
 		if(isDead())
 			return;
 		
-		super.update();
-		
 		int simulationAge = getCell().getBoard().getSimulation().getTick();
 		int ateSince = simulationAge - lastAte;
 		
@@ -48,6 +46,7 @@ public class Coyote extends Agent<Coyote> {
 			move(towards);
 		}
 		
+		super.update();
 		getCell().updateLabel();
 	}
 

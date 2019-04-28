@@ -1,28 +1,19 @@
 package me.paul.hw3;
 
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import me.paul.hw3.simulation.Agent;
-import me.paul.hw3.simulation.Coyote;
-import me.paul.hw3.simulation.RoadRunner;
-import me.paul.hw3.simulation.Simulation;
 import me.paul.hw3.simulation.SimulationBuilder;
 
 public class Main {
 
+	private static final Logger logger = LoggerFactory.getLogger(Main.class);
+	
 	public static void main(String[] args) {
-		System.out.println("Normal simulation type shit...");
+		logger.debug("Building simulation...");
+		logger.info("TEST");
 		SimulationBuilder builder = SimulationBuilder.getInstance();
-		
-		Simulation s = builder.createSimulation(7,7, 5, 10, 5, 10);
-		
-		List<Coyote> coyotes = s.getBoard().getAgents(Coyote.class);
-		List<RoadRunner> runners = s.getBoard().getAgents(RoadRunner.class);
-		List<Agent<?>> agents = s.getBoard().getAllAgents();
-		
-		System.out.println("Total Agents: " + agents.size());
-		System.out.println("Coyotes: " + coyotes.size());
-		System.out.println("RoadRunners: " + runners.size());
+		builder.createSimulation(9,9, 10, 20, 10, 20);
 	}
 	
 }
