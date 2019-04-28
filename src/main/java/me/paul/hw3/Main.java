@@ -3,10 +3,12 @@ package me.paul.hw3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import lombok.Getter;
 import me.paul.hw3.simulation.SimulationBuilder;
 
 public class Main {
 
+	@Getter
 	private static final Logger logger = LoggerFactory.getLogger(Main.class);
 	
 	public static void main(String[] args) {
