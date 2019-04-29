@@ -1,6 +1,7 @@
 package me.paul.hw3.simulation;
 
 import me.paul.hw3.simulation.grid.Board.Direction;
+import me.paul.hw3.Main;
 import me.paul.hw3.simulation.grid.Cell;
 
 public class Coyote extends Agent<Coyote> {
@@ -23,6 +24,7 @@ public class Coyote extends Agent<Coyote> {
 		
 		if(ateSince >= 4) {
 			die();
+			Main.getLogger().warn("Coyote(" + getUuid() + ") died to starvation!");
 			return;
 		}
 		
@@ -30,7 +32,9 @@ public class Coyote extends Agent<Coyote> {
 		
 		if(rCell == null) {
 			Direction randomD = Direction.values()[getRandom().nextInt(Direction.values().length)];
-			move(randomD);
+			while(!move(randomD))
+				randomD = Direction.values()[getRandom().nextInt(Direction.values().length)];
+			
 		} else {
 			int nX = rCell.getRow() - getCell().getRow();
 			int nY = rCell.getColumn() - getCell().getColumn();
@@ -40,10 +44,11 @@ public class Coyote extends Agent<Coyote> {
 			Agent<?> roadRunner = rCell.getOccupying();
 			roadRunner.die();
 			
-			System.out.println("Coyote(" + getUuid() + ") just ate a RoadRunner(" + roadRunner.getUuid() + ")!");
 			lastAte = simulationAge;
 			
 			move(towards);
+			
+			Main.getLogger().warn("Coyote(" + getUuid() + ") just ate RoadRunner(" + roadRunner.getUuid() + ") at cell " + String.format("(%s,%s)", rCell.getRow(), rCell.getColumn()));
 		}
 		
 		super.update();
@@ -57,6 +62,7 @@ public class Coyote extends Agent<Coyote> {
 			Cell o = c.getRelative(d);
 			
 			if(o != null && !o.isOccupied()) {
+				Main.getLogger().info("Coyote just bred a new Coyote at cell " + String.format("(%s,%s)", o.getRow(), o.getColumn()));
 				return new Coyote(o);
 			}
 		}

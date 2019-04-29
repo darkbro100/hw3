@@ -6,6 +6,7 @@ import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import me.paul.hw3.Main;
 import me.paul.hw3.simulation.grid.Board;
 import me.paul.hw3.simulation.grid.Board.Direction;
 import me.paul.hw3.simulation.grid.Cell;
@@ -60,6 +61,11 @@ public abstract class Agent<T extends Agent<T>> {
 			return false;
 		}
 
+		String from = String.format("(%s, %s)", cell.getRow(), cell.getColumn());
+		String to = String.format("(%s,%s)", nCell.getRow(), nCell.getColumn());
+		
+		Main.getLogger().info(getClass().getSimpleName() + "(" + getUuid() + ")" + " is moving " + direction.getShortHand() + " from " + from + " to " + to);
+		
 		this.cell.setOccupying(null);
 		nCell.setOccupying(this);
 
@@ -81,7 +87,7 @@ public abstract class Agent<T extends Agent<T>> {
 	 * @return True if this {@link Agent} is dead
 	 */
 	public boolean isDead() {
-		return cell == null;
+		return age == -1;
 	}
 
 	/**

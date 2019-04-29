@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import me.paul.hw3.simulation.grid.Board.Direction;
+import me.paul.hw3.Main;
 import me.paul.hw3.simulation.grid.Cell;
 
 public class RoadRunner extends Agent<RoadRunner> {
@@ -21,6 +22,7 @@ public class RoadRunner extends Agent<RoadRunner> {
 			Cell o = c.getRelative(d);
 			
 			if(o != null && !o.isOccupied()) {
+				Main.getLogger().info("RoadRunner just bred a new RoadRunner at cell " + String.format("(%s,%s)", o.getRow(), o.getColumn()));
 				return new RoadRunner(o);
 			}
 		}
@@ -36,8 +38,10 @@ public class RoadRunner extends Agent<RoadRunner> {
 		
 		if(coyotes.isEmpty()) {
 			Direction randomD = Direction.values()[getRandom().nextInt(Direction.values().length)];
-			move(randomD);
+			while(!move(randomD))
+				randomD = Direction.values()[getRandom().nextInt(Direction.values().length)];
 		} else {
+			Main.getLogger().info("RoadRunner is attempting to run away from " + coyotes.size() + " Coyotes!");
 			Direction d = runFrom(getCell(), coyotes);
 			move(d);
 			
@@ -45,7 +49,6 @@ public class RoadRunner extends Agent<RoadRunner> {
 //			if(coyotes.size() >= 1) {
 //				d = runFrom(getCell(), coyotes);
 //				move(d);
-//				System.out.println("Moved again!");
 //			}
 		}
 

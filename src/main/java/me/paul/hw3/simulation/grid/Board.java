@@ -35,6 +35,7 @@ public class Board extends JPanel {
 	
 	public Board(Simulation simulation, int rows, int columns) {
 		this.simulation = simulation;
+		
 		this.rows = rows;
 		this.columns = columns;
 		
@@ -119,19 +120,21 @@ public class Board extends JPanel {
 	@RequiredArgsConstructor @Getter
 	public enum Direction {
 
-		NORTH(-1,0),
-		NORTHEAST(-1, 1),
-		NORTHWEST(-1, -1),
+		NORTH(-1,0, "N"),
+		NORTHEAST(-1, 1, "NE"),
+		NORTHWEST(-1, -1, "NW"),
 		
-		SOUTH(1,0),
-		SOUTHEAST(1, 1),
-		SOUTHWEST(1, -1),
+		SOUTH(1,0, "S"),
+		SOUTHEAST(1, 1, "SE"),
+		SOUTHWEST(1, -1, "SW"),
 		
-		EAST(0,1),
-		WEST(0,-1);
+		EAST(0,1, "E"),
+		WEST(0,-1, "W");
 		
 		private final int rowOffset;
 		private final int columnOffset;
+		
+		private final String shortHand;
 		
 		public static Direction valueOf(int row, int col) {
 			for(Direction d : values()) {

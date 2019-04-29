@@ -4,12 +4,14 @@ import java.awt.BorderLayout;
 import java.util.Collections;
 import java.util.List;
 import java.util.SplittableRandom;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import lombok.Getter;
+import me.paul.hw3.Main;
 import me.paul.hw3.simulation.grid.Board;
 import me.paul.hw3.simulation.grid.Cell;
 
@@ -51,6 +53,13 @@ public class Simulation extends JFrame {
 		add(board);
 		
 		setupButton();
+		
+		Main.getLogger().info("Simulation Found. Configuration Settings:");
+		Main.getLogger().info("Rows: " + board.getRows());
+		Main.getLogger().info("Columns: " + board.getColumns());
+		Main.getLogger().info("");
+		Main.getLogger().info("Min Prey: " + minPrey + " Max Prey: " + maxPrey);
+		Main.getLogger().info("Min Predators: " + minPredators + " Max Predators: " + maxPredators);
 	}
 	
 	private void startSimulation() {
@@ -58,10 +67,15 @@ public class Simulation extends JFrame {
 			throw new RuntimeException("Simulation already started!");
 		started = true;
 		
+		Main.getLogger().info("Starting Simulation...");
+		
 		SplittableRandom random = new SplittableRandom();
 		int prey = random.nextInt(minPrey, maxPrey + 1);
 		int predators = random.nextInt(minPreds, maxPreds + 1);
 
+		Main.getLogger().info("Starting Prey: " + prey);
+		Main.getLogger().info("Starting Predators: " +  predators);
+		
 		for (int i = 0; i < prey; i++) {
 			Cell found = null;
 
@@ -74,10 +88,9 @@ public class Simulation extends JFrame {
 					found = null;
 			}
 
-			new RoadRunner(found);
+			UUID id = new RoadRunner(found).getUuid();
 
-			System.out.println(
-					String.format("Spawned RoadRunner at location: (%s, %s)", found.getRow(), found.getColumn()));
+			Main.getLogger().info(String.format("RoadRunner(%s) created at cell (%s, %s)", id.toString(), found.getRow(), found.getColumn()));
 		}
 
 		for (int i = 0; i < predators; i++) {
@@ -92,9 +105,9 @@ public class Simulation extends JFrame {
 					found = null;
 			}
 
-			new Coyote(found);
+			UUID id = new Coyote(found).getUuid();
 
-			System.out.println(String.format("Spawned Coyote at location: (%s, %s)", found.getRow(), found.getColumn()));
+			Main.getLogger().info(String.format("Coyote(%s) created at cell (%s, %s)", id.toString(), found.getRow(), found.getColumn()));
 		}
 		
 		updateTitle();
@@ -111,7 +124,11 @@ public class Simulation extends JFrame {
 				return;
 			}
 
-			System.out.println("\n\n#########  Step " + tick + "  ##########\n\n");
+			for(int i =0; i < 2; i++)
+				Main.getLogger().info("");
+			Main.getLogger().info("########## Age " + tick + " ##########");
+			for(int i = 0; i < 2; i++)
+				Main.getLogger().info("");
 			
 			List<Agent<?>> agents = board.getAllAgents();
 			
