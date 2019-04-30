@@ -76,7 +76,7 @@ public abstract class Agent<T extends Agent<T>> {
 	}
 	
 	/**
-	 * Try to move this {@link Agent} in any random direction
+	 * Try to move this {@link Agent} in any random direction. If there are no available directions to move in, this {@link Agent} will not move
 	 * @return Whether or not this {@link Agent} successfully moved or not
 	 */
 	public boolean arbitaryMove() {

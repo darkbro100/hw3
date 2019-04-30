@@ -9,7 +9,7 @@ import me.paul.hw3.simulation.SimulationBuilder;
 /*
  * Todos:
  * 	- Work on RoadRunner algorithm for running away from Coyotes
- *  - Fix issue with application freezing after running for x amount of steps
+ *  - Add pre time step statistics (how many coyotes, roadrunners there are before each time step begins, etc.)
  */
 public class Main {
 
