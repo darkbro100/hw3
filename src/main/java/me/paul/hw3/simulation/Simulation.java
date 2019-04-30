@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.util.Collections;
 import java.util.List;
 import java.util.SplittableRandom;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.swing.JButton;
@@ -88,9 +87,9 @@ public class Simulation extends JFrame {
 					found = null;
 			}
 
-			UUID id = new RoadRunner(found).getUuid();
+			int id = new RoadRunner(found).getId();
 
-			Main.getLogger().info(String.format("RoadRunner(%s) created at cell (%s, %s)", id.toString(), found.getRow(), found.getColumn()));
+			Main.getLogger().info(String.format("RoadRunner(%s) created at cell (%s, %s)", id, found.getRow(), found.getColumn()));
 		}
 
 		for (int i = 0; i < predators; i++) {
@@ -105,9 +104,9 @@ public class Simulation extends JFrame {
 					found = null;
 			}
 
-			UUID id = new Coyote(found).getUuid();
+			int id = new Coyote(found).getId();
 
-			Main.getLogger().info(String.format("Coyote(%s) created at cell (%s, %s)", id.toString(), found.getRow(), found.getColumn()));
+			Main.getLogger().info(String.format("Coyote(%s) created at cell (%s, %s)", id, found.getRow(), found.getColumn()));
 		}
 		
 		updateTitle();

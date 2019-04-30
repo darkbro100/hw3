@@ -37,9 +37,7 @@ public class RoadRunner extends Agent<RoadRunner> {
 		List<Cell> coyotes = findCoyotes();
 		
 		if(coyotes.isEmpty()) {
-			Direction randomD = Direction.values()[getRandom().nextInt(Direction.values().length)];
-			while(!move(randomD))
-				randomD = Direction.values()[getRandom().nextInt(Direction.values().length)];
+			arbitaryMove();
 		} else {
 			Main.getLogger().info("RoadRunner is attempting to run away from " + coyotes.size() + " Coyotes!");
 			Direction d = runFrom(getCell(), coyotes);

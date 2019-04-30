@@ -1,7 +1,6 @@
 package me.paul.hw3.simulation;
 
 import java.util.SplittableRandom;
-import java.util.UUID;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,7 +19,9 @@ import me.paul.hw3.simulation.grid.Cell;
 @Getter(value = AccessLevel.PROTECTED) @Setter(value = AccessLevel.PROTECTED)
 public abstract class Agent<T extends Agent<T>> {
 
-	private final UUID uuid;
+	private static int agentCounter = 0;
+	
+	private final int id;
 
 	private Cell cell;
 
@@ -31,10 +32,11 @@ public abstract class Agent<T extends Agent<T>> {
 
 	protected Agent(Cell cell) {
 		this.cell = cell;
-		this.uuid = UUID.randomUUID();
+		this.id = agentCounter;
 		this.age = 0;
 		
 		cell.setOccupying(this);
+		agentCounter++;
 	}
 
 	/**
@@ -64,12 +66,34 @@ public abstract class Agent<T extends Agent<T>> {
 		String from = String.format("(%s, %s)", cell.getRow(), cell.getColumn());
 		String to = String.format("(%s,%s)", nCell.getRow(), nCell.getColumn());
 		
-		Main.getLogger().info(getClass().getSimpleName() + "(" + getUuid() + ")" + " is moving " + direction.getShortHand() + " from " + from + " to " + to);
+		Main.getLogger().info(getClass().getSimpleName() + "(" + getId() + ")" + " is moving " + direction.getShortHand() + " from " + from + " to " + to);
 		
 		this.cell.setOccupying(null);
 		nCell.setOccupying(this);
 
 		this.cell = nCell;
+		return true;
+	}
+	
+	/**
+	 * Try to move this {@link Agent} in any random direction
+	 * @return Whether or not this {@link Agent} successfully moved or not
+	 */
+	public boolean arbitaryMove() {
+		Direction[] dirs = Direction.values();
+		int starting = getRandom().nextInt(dirs.length);
+		int i = starting == 0 ? dirs.length - 1 : starting-1;
+		Direction randomD = dirs[starting];
+		while(!move(randomD)) {
+			if(i == starting) {
+				return false;
+			}
+			randomD = dirs[i];
+			i--;
+			
+			if(i < 0)
+				i = dirs.length-1;
+		}
 		return true;
 	}
 

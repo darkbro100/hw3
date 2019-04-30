@@ -24,17 +24,14 @@ public class Coyote extends Agent<Coyote> {
 		
 		if(ateSince >= 4) {
 			die();
-			Main.getLogger().warn("Coyote(" + getUuid() + ") died to starvation!");
+			Main.getLogger().warn("Coyote(" + getId() + ") died to starvation!");
 			return;
 		}
 		
 		Cell rCell = findRoadRunner();
 		
 		if(rCell == null) {
-			Direction randomD = Direction.values()[getRandom().nextInt(Direction.values().length)];
-			while(!move(randomD))
-				randomD = Direction.values()[getRandom().nextInt(Direction.values().length)];
-			
+			arbitaryMove();
 		} else {
 			int nX = rCell.getRow() - getCell().getRow();
 			int nY = rCell.getColumn() - getCell().getColumn();
@@ -48,7 +45,7 @@ public class Coyote extends Agent<Coyote> {
 			
 			move(towards);
 			
-			Main.getLogger().warn("Coyote(" + getUuid() + ") just ate RoadRunner(" + roadRunner.getUuid() + ") at cell " + String.format("(%s,%s)", rCell.getRow(), rCell.getColumn()));
+			Main.getLogger().warn("Coyote(" + getId() + ") just ate RoadRunner(" + roadRunner.getId() + ") at cell " + String.format("(%s,%s)", rCell.getRow(), rCell.getColumn()));
 		}
 		
 		super.update();
