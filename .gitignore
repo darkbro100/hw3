@@ -38,3 +38,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Custom Directories Created By The Application
+final/
+logs/
