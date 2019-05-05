@@ -18,8 +18,7 @@
 		</rollingPolicy>
 		<encoder>
 			<charset>UTF-8</charset>
-			<pattern>[%d{HH:mm:ss.SSS} %level]: %msg%n
-			</pattern>
+			<pattern>[%d{HH:mm:ss.SSS} %level]: %msg%n</pattern>
 		</encoder>
 		<prudent>true</prudent>
 	</appender>
