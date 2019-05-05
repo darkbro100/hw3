@@ -2,6 +2,11 @@ package me.paul.hw3.simulation;
 
 import lombok.Getter;
 
+/**
+ * Simple Singleton design which is used to create instances of a {@link Simulation}
+ * @author Paul
+ *
+ */
 public class SimulationBuilder {
 
 	@Getter

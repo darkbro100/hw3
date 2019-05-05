@@ -61,6 +61,12 @@ public class Board extends JPanel {
 		}
 	}
 	
+	/**
+	 * Check if a coordinate pair exists in this {@link Board}
+	 * @param row Row or "x" coordinate
+	 * @param column Column or "y" coordinate
+	 * @return Whether or not the pair actually exists in this grid
+	 */
 	public boolean inBounds(int row, int column) {
 		return row >= 0 && row < rows && column >= 0 && column < columns;
 	}
@@ -136,6 +142,12 @@ public class Board extends JPanel {
 		
 		private final String shortHand;
 		
+		/**
+		 * Find an instance of {@link Direction} given a pair of Vector coordinates
+		 * @param row X coordinate
+		 * @param col Y coordinate
+		 * @return The Directional Vector associated with that pair
+		 */
 		public static Direction valueOf(int row, int col) {
 			for(Direction d : values()) {
 				if(d.rowOffset == row && d.columnOffset == col)
