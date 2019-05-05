@@ -66,7 +66,7 @@ public class Cell extends JComponent {
 	
 	public void updateLabel() {
 		if(isOccupied()) {
-			String type = occupying instanceof Coyote ? "C" : "RR";
+			String type = occupying instanceof Coyote ? "C" : "R";
 			label.setText(type + " (Age: " + occupying.getAge() + ")");
 		} else {
 			label.setText("");

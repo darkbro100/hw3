@@ -2,14 +2,13 @@ package me.paul.hw3.simulation;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.SplittableRandom;
 import java.util.stream.Collectors;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -136,7 +135,6 @@ public class Simulation extends JFrame {
 
 			logAge();
 			
-			
 			List<Agent<?>> agents = board.getAllAgents();
 			
 			// Since this is technically a turn based simulation since it runs on 1 thread,
@@ -172,13 +170,17 @@ public class Simulation extends JFrame {
 			
 			if(rrs <= 0 || coyotes <= 0) {
 				String type = rrs == 0 ? "RoadRunners" : "Coyotes";
+				Object[] options = { "Close Simulation" };
 				
 				Toolkit.getDefaultToolkit().beep();
-				JOptionPane pane = new JOptionPane("All the " + type + " are dead!", JOptionPane.INFORMATION_MESSAGE, JOptionPane.OK_OPTION, new ImageIcon(new byte[0]));;
+				JOptionPane pane = new JOptionPane("All the " + type + " are dead!", JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION, null, options);
 				JDialog dialog = pane.createDialog("Simulation Over!");
 				
 				dialog.setAlwaysOnTop(true);
 				dialog.setVisible(true);
+				
+				//Exit from application
+				dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 			}
 		});
 
