@@ -1,17 +1,12 @@
 package me.paul.hw3.simulation;
 
-import lombok.Getter;
-
 /**
  * Simple Singleton design which is used to create instances of a
  * {@link Simulation}
  * 
- * @author Paul
- *
+ * @author Paul Guarnieri
  */
 public class SimulationBuilder {
-
-	@Getter
 	private static final SimulationBuilder instance = new SimulationBuilder();
 
 	private SimulationBuilder() {
@@ -57,10 +52,16 @@ public class SimulationBuilder {
 	 * @param maxPrey      Maximum amount of prey that can spawn in the grid
 	 * @return The generated {@link Simulation} given the configuration settings
 	 */
-	public Simulation createSimulation(int rows, int columns, int minPredators, int maxPredators, int minPrey,
-			int maxPrey) {
+	public Simulation createSimulation(int rows, int columns, int minPredators, int maxPredators, int minPrey, int maxPrey) {
 		Simulation s = new Simulation(rows, columns, minPredators, maxPredators, minPrey, maxPrey);
 		return s;
 	}
 
+	/**
+	 * Get the instance of {@link SimulationBuilder}
+	 * @return An instance of {@link SimulationBuilder}
+	 */
+	public static SimulationBuilder getInstance() {
+		return SimulationBuilder.instance;
+	}
 }

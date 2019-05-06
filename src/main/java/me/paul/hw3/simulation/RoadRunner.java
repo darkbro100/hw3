@@ -45,21 +45,22 @@ public class RoadRunner extends Agent<RoadRunner> {
 			arbitaryMove();
 		} else {
 			Main.getLogger().info("RoadRunner is attempting to run away from " + coyotes.size() + " Coyotes!");
-			Direction d = runFrom(getCell(), coyotes);
+			Direction d = runFrom(coyotes);
 			move(d);
-			
-//			coyotes = findCoyotes();
-//			if(coyotes.size() >= 1) {
-//				d = runFrom(getCell(), coyotes);
-//				move(d);
-//			}
 		}
 
 		super.update();
 		getCell().updateLabel();
 	}
 	
-	private Direction runFrom(Cell position, List<Cell> cells) {
+	/**
+	 * Find a direction to run from a List of {@link Coyote}
+	 * @param cells All the nearby {@link Coyote}s
+	 * @return The {@link Direction} to move in to run away from the {@link coyote}
+	 */
+	private Direction runFrom(List<Cell> cells) {
+		Cell position = getCell();
+		
 		double greatest = 0;
 		Direction toReturn = Direction.NORTH;
 		
@@ -107,6 +108,10 @@ public class RoadRunner extends Agent<RoadRunner> {
 		return toReturn;
 	}
 	
+	/**
+	 * Find all the {@link Coyote}s near this {@link RoadRunner} in a 1 block tile
+	 * @return List of nearby {@link Coyote}, will never return null, just an empty list if there are no coyotes.
+	 */
 	public List<Cell> findCoyotes() {
 		return findCoyotes(getCell());
 	}
