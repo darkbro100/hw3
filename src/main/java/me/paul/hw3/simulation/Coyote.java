@@ -4,8 +4,16 @@ import me.paul.hw3.simulation.grid.Board.Direction;
 import me.paul.hw3.Main;
 import me.paul.hw3.simulation.grid.Cell;
 
+/**
+ * An implementation of {@link Agent} in the form of a predator living in the {@link Simulation}
+ * @author Paul Guarnieri
+ *
+ */
 public class Coyote extends Agent<Coyote> {
 
+	/**
+	 * The last time this {@link Coyote} ate a {@link RoadRunner}
+	 */
 	private int lastAte;
 	
 	protected Coyote(Cell cell) {
@@ -66,6 +74,10 @@ public class Coyote extends Agent<Coyote> {
 		return null;
 	}
 	
+	/**
+	 * Find any nearby {@link RoadRunner} (1 tile) and the {@link Cell} it belongs to
+	 * @return The {@link Cell} that is being occupied by a {@link RoadRunner}, if there are any
+	 */
 	private Cell findRoadRunner() {
 		for(Direction d : Direction.values()) {
 			Cell c = getCell().getRelative(d);

@@ -6,12 +6,16 @@ import org.slf4j.LoggerFactory;
 import lombok.Getter;
 import me.paul.hw3.simulation.SimulationBuilder;
 
-/*
- * Todos:
- * 	- Work on RoadRunner algorithm for running away from Coyotes
+/**
+ * Main Driver Program that runs a {@link Simulation}
+ * @author Paul Guarnieri
+ *
  */
 public class Main {
 
+	/**
+	 * SLF4J Logger implementation to make logging prettier
+	 */
 	@Getter
 	private static final Logger logger = LoggerFactory.getLogger(Main.class);
 	

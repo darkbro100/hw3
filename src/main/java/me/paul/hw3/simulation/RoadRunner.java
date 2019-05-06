@@ -9,6 +9,11 @@ import me.paul.hw3.simulation.grid.Board.Direction;
 import me.paul.hw3.Main;
 import me.paul.hw3.simulation.grid.Cell;
 
+/**
+ * An implementation of {@link Agent} in the form of a prey living in the {@link Simulation}
+ * @author Paul Guarnieri
+ *
+ */
 public class RoadRunner extends Agent<RoadRunner> {
 
 	protected RoadRunner(Cell cell) {

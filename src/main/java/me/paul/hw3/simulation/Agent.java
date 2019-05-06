@@ -19,17 +19,35 @@ import me.paul.hw3.simulation.grid.Cell;
 @Getter(value = AccessLevel.PROTECTED) @Setter(value = AccessLevel.PROTECTED)
 public abstract class Agent<T extends Agent<T>> {
 
+	/**
+	 * A counter used to give each {@link Agent} a unique ID
+	 */
 	private static int agentCounter = 0;
-	
+	/**
+	 * The id of this {@link Agent} instance
+	 */
 	private final int id;
 
+	/**
+	 * The {@link Cell} that this {@link Agent} belongs to. Will only be null if {@link #isDead()} returns true
+	 */
 	private Cell cell;
 
+	/**
+	 * How long this {@link Agent} has been living in the {@link Simulation} for
+	 */
 	@Getter @Setter
 	private int age;
 
+	/**
+	 * An instance of {@link SplittableRandom} to generate any random numbers at some point
+	 */
 	private final SplittableRandom random = new SplittableRandom();
 
+	/**
+	 * Constructs a new {@link Agent} and adds it to a given {@link Cell}
+	 * @param cell {@link Cell} to spawn this {@link Agent} on
+	 */
 	protected Agent(Cell cell) {
 		this.cell = cell;
 		this.id = agentCounter;
