@@ -28,3 +28,6 @@ Green Circle = Public
 Hollow Red Square = Private Variables  
 Filled Red Square = Private Methods  
 Yellow Diamond = Protected  
+
+## Viewing Log Files
+You can at any point view the log file of a previous simulation you ran by viewing the `logs/` directory and simply viewing a log file of your choice 
