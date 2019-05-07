@@ -2,6 +2,7 @@ package me.paul.hw3;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import me.paul.hw3.simulation.SimulationBuilder;
 
 /**
@@ -15,8 +16,18 @@ public class Main {
 	private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
 	public static void main(String[] args) {
+		SettingsManager settings = SettingsManager.getInstance();
+		settings.load();
+		
+		int rows = settings.getRows();
+		int columns = settings.getColumns();
+		int minPrey = settings.getMinPrey();
+		int maxPrey = settings.getMaxPrey();
+		int minPreds = settings.getMinPredators();
+		int maxPreds = settings.getMaxPredators();
+		
 		SimulationBuilder builder = SimulationBuilder.getInstance();
-		builder.createSimulation(10, 10, 10, 20, 10, 20);
+		builder.createSimulation(rows, columns, minPreds, maxPreds, minPrey, maxPrey);
 	}
 
 	/**
